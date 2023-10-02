@@ -72,12 +72,24 @@ gallery.addEventListener('click', (e) => {
     // create a modal window
     const card = createModalCard(data)
     gallery.insertAdjacentHTML('beforebegin', card)
+
     // create close modal event listener
+    const modalContainer = document.querySelector('.modal-container')
+
     const closeButton = document.querySelector('#modal-close-btn')
     closeButton.addEventListener('click', (e) => {
-        const modalContainer = document.querySelector('.modal-container')
         modalContainer.remove()
     })  
+    addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') {
+            modalContainer.remove() 
+        }
+    })
+    addEventListener('click', (e) => {
+        if(e.target.parentElement === body) {
+            modalContainer.remove() 
+        }
+    })
     }
 })
 
