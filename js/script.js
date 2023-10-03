@@ -5,14 +5,14 @@
 // img, first/last name, email, city or location
 // style it like html in index.html example
 
-const url = 'https://randomuser.me/api/?results=12'
+const url = 'https://randomuser.me/api/?nat=us&results=12'
 const galleryCards = []
 const gallery = document.querySelector('#gallery')
 const body = document.querySelector('body')
 
 async function fetchUsers() {
     try {
-        const response = await fetch('https://randomuser.me/api/?results=12')
+        const response = await fetch(url)
         const data = await response.json()
         generateGallery(data.results)
     } catch(error) {
@@ -44,9 +44,9 @@ function createModalCard(data) {
             <p class="modal-text">${data.email}</p>
             <p class="modal-text cap">${data.location.city},</p>
             <hr>
-            <p class="modal-text">${data.cell}</p>
+            <p class="modal-text">${formatPhoneNums(data.cell)}</p>
             <p class="modal-text">123 ${data.location.street.name}, ${data.location.city}, ${data.location.state} ${data.location.postcode}</p>
-            <p class="modal-text">Birthday: ${data.dob.date}</p>
+            <p class="modal-text">Birthday: ${formatBirthdates(data.dob.date)}</p>
         </div>
     </div>
     </div>`
@@ -93,15 +93,28 @@ gallery.addEventListener('click', (e) => {
     }
 })
 
+// format cell phone numbers
+// (xxx) xxx-xxxx
+
+function formatPhoneNums(phone) {
+    const number = phone.split('').filter(item => {
+        return Number.isInteger(+item) && item !== ' '
+    }).join('')
+    const expression = /(\d{3})(\d{3})(\d{4})/
+    return number.replace(expression, '($1) $2-$3')
+}
 
 
+// format birthdates
+// mm/dd/yyyy
 
-
-
-// refer to mockups/comments for styling info
-// cell should be (xxx) xxx-xxxx
-// birthday: mm/dd/yyyy
-
+function formatBirthdates(date) {
+    const removeSpaces = /\D+/g
+    date = date.replace(removeSpaces, '')
+    date = date.slice(0, 8)
+    const dateFormat = /(\d{4})(\d{2})(\d{2})/
+    return date.replace(dateFormat, '$2/$3/$1')
+}
 
 // call fetchUsers()
 fetchUsers()
