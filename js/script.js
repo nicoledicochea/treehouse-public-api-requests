@@ -129,10 +129,6 @@ fetchUsers()
 // create and append elements needed for search bar
 const searchContainer = document.querySelector('.search-container')
 
-// const form = document.createElement('form')
-// form.action = '#'
-// form.method = 'GET'
-
 const searchInput = document.createElement('input')
 searchInput.type = 'search'
 searchInput.id = 'search-input'
@@ -146,7 +142,6 @@ searchSubmit.classList.add('search-submit')
 
 searchContainer.appendChild(searchInput)
 searchContainer.appendChild(searchSubmit)
-// searchContainer.appendChild(form)
 
 // create search function
 function searchUsers(searchTerm) {
