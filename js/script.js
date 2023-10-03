@@ -1,4 +1,4 @@
-const galleryCards = []
+const users = []
 const gallery = document.querySelector('#gallery')
 const body = document.querySelector('body')
 
@@ -53,7 +53,9 @@ function createModalCard(data) {
 function generateGallery(data) {
     gallery.insertAdjacentHTML('beforeend', data.map(person => {
         // add each person object to galleryCards array
-        galleryCards.push(person)
+        if(users.length < 12) {
+            users.push(person)
+        }
         return createGalleryCard(person)
     }).join('')) 
 }
@@ -64,7 +66,7 @@ gallery.addEventListener('click', (e) => {
     // ensure only gallery card selected
     if(cardClicked) {
         // find card that was clicked
-        const data = galleryCards.find(person => {
+        const data = users.find(person => {
             const cardName = cardClicked.querySelector('h3').id
             return cardName === person.name.first
         })
@@ -123,3 +125,58 @@ function formatBirthdates(date) {
 
 // call fetchUsers()
 fetchUsers()
+
+// create and append elements needed for search bar
+const searchContainer = document.querySelector('.search-container')
+
+// const form = document.createElement('form')
+// form.action = '#'
+// form.method = 'GET'
+
+const searchInput = document.createElement('input')
+searchInput.type = 'search'
+searchInput.id = 'search-input'
+searchInput.classList.add('search-input')
+searchInput.placeholder = 'Search...'
+
+const searchSubmit = document.createElement('input')
+searchSubmit.type = 'submit'
+searchSubmit.id = 'search-submit'
+searchSubmit.classList.add('search-submit')
+
+searchContainer.appendChild(searchInput)
+searchContainer.appendChild(searchSubmit)
+// searchContainer.appendChild(form)
+
+// create search function
+function searchUsers(searchTerm) {
+    const filteredUsers = users.filter(user => {
+        const firstName = user.name.first.toLowerCase()
+        const lastName = user.name.last.toLowerCase()
+        return firstName.includes(searchTerm) || lastName.includes(searchTerm)
+    })
+    if (filteredUsers.length === 0) {
+        const h2 = document.createElement('h2')
+        h2.innerText = 'No results found.'
+        gallery.appendChild(h2)
+    } else {
+        generateGallery(filteredUsers)
+    }
+}
+// clear gallery cards from DOM
+function removeGalleryCards() {
+    while(gallery.lastElementChild) {
+        gallery.lastChild.remove()
+    }
+}
+// add change event to search input
+searchInput.addEventListener('keyup', (e) => {
+    removeGalleryCards()
+    searchUsers(e.target.value.toLowerCase())
+})
+// add click event to search submit button
+searchSubmit.addEventListener('click', (e) => {
+    removeGalleryCards()
+    searchUsers(searchInput.value)
+})
+
