@@ -31,8 +31,8 @@ function createGalleryCard(data) {
 }
 
 // return modal card HTML
-function createModalCard(data) {
-    return `<div class="modal-container">
+function createModalCardHTML(data) {
+    return `
         <div class="modal">
         <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
         <div class="modal-info-container">
@@ -46,7 +46,45 @@ function createModalCard(data) {
             <p class="modal-text">Birthday: ${formatBirthdates(data.dob.date)}</p>
         </div>
     </div>
-    </div>`
+    <div class="modal-btn-container">
+        <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+        <button type="button" id="modal-next" class="modal-next btn">Next</button>
+    </div>
+    `
+}
+
+function displayModalCard(data) {
+    // create modal card
+    const card = createModalCardHTML(data)
+
+    const modalContainer = document.createElement('div')
+    modalContainer.classList.add('modal-container')
+    modalContainer.innerHTML = card
+    // add modal HTML to the DOM
+    // gallery.insertAdjacentHTML('beforebegin', card)
+    gallery.insertAdjacentElement('beforebegin', modalContainer)
+    // modalContainer.insertAdjacentHTML = ('beforeend', card)
+
+
+    // add close modal functionality 
+    const closeButton = document.querySelector('.modal-close-btn')
+    // close modal when close button clicked
+    closeButton.addEventListener('click', (e) => {
+        modalContainer.remove()
+    })  
+    // close modal when escape key used
+    addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') {
+            modalContainer.remove() 
+        }
+    })
+    // close modal when outside of modal container clicked
+    addEventListener('click', (e) => {
+        if(e.target.parentElement === body) {
+            modalContainer.remove() 
+        }
+    })
+    return modalContainer
 }
 
 // add gallery cards to the DOM
@@ -66,36 +104,66 @@ gallery.addEventListener('click', (e) => {
     // ensure only gallery card selected
     if(cardClicked) {
         // find card that was clicked
-        const data = users.find(person => {
+        data = users.find(person => {
             const cardName = cardClicked.querySelector('h3').id
             return cardName === person.name.first
         })
+    // display modal
+    displayModalCard(data)
 
-    // create modal card
-    const card = createModalCard(data)
+    // const modalContainer = document.createElement('div')
+    // modalContainer.classList.add('modal-container')
+    // modalContainer.innerHTML = card
+    // // add modal HTML to the DOM
+    // // gallery.insertAdjacentHTML('beforebegin', card)
+    // gallery.insertAdjacentElement('beforebegin', modalContainer)
+    // // modalContainer.insertAdjacentHTML = ('beforeend', card)
 
-    // add modal HTML to the DOM
-    gallery.insertAdjacentHTML('beforebegin', card)
 
-    // add close modal functionality 
-    const modalContainer = document.querySelector('.modal-container')
-    const closeButton = document.querySelector('#modal-close-btn')
-    // close modal when close button clicked
-    closeButton.addEventListener('click', (e) => {
-        modalContainer.remove()
-    })  
-    // close modal when escape key used
-    addEventListener('keydown', (e) => {
-        if(e.key === 'Escape') {
-            modalContainer.remove() 
-        }
-    })
-    // close modal when outside of modal container clicked
-    addEventListener('click', (e) => {
-        if(e.target.parentElement === body) {
-            modalContainer.remove() 
-        }
-    })
+    // // add close modal functionality 
+    // const closeButton = document.querySelector('.modal-close-btn')
+    // // close modal when close button clicked
+    // closeButton.addEventListener('click', (e) => {
+    //     modalContainer.remove()
+    //     console.log('click')
+    // })  
+    // // close modal when escape key used
+    // addEventListener('keydown', (e) => {
+    //     if(e.key === 'Escape') {
+    //         modalContainer.remove() 
+    //     }
+    // })
+    // // close modal when outside of modal container clicked
+    // addEventListener('click', (e) => {
+    //     if(e.target.parentElement === body) {
+    //         modalContainer.remove() 
+    //     }
+    // })
+
+    // // add click event to modal buttons
+    // const prevButton = document.querySelector('#modal-prev')
+    // const nextButton = document.querySelector('#modal-next')
+
+    // prevButton.addEventListener('click', (e) => {
+    //     let count = 1
+    //     const index = users.indexOf(data)
+    //     if(index !== 0) {
+    //         // const newCard = createModalCard(users[index - 1])
+    //         // const newCard = createModalCard(users[index - count]) 
+    //         // modalContainer.innerHTML = newCard
+    //         modalContainer.remove()
+    //         const newDiv = document.createElement('div')
+    //         newDiv.classList.add('modal-container')
+    //         gallery.insertAdjacentElement('beforebegin', newDiv)
+    //         newDiv.innerHTML = createModalCard(users[index - 1])
+    //         // newDiv.insertAdjacentHTML = ('beforeend', newCard)
+    //         // console.log(modalContainer, newCard, newDiv)
+    //     }
+    //     count++
+    // })
+    // nextButton.addEventListener('click', (e) => {
+    //     console.log('next')
+    // })
     }
 })
 
@@ -150,10 +218,12 @@ function searchUsers(searchTerm) {
         const lastName = user.name.last.toLowerCase()
         return firstName.includes(searchTerm) || lastName.includes(searchTerm)
     })
+    // if no users match search term
     if (filteredUsers.length === 0) {
         const h2 = document.createElement('h2')
         h2.innerText = 'No results found.'
         gallery.appendChild(h2)
+    // generate gallery with filtered users
     } else {
         generateGallery(filteredUsers)
     }
