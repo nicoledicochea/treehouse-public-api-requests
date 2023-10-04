@@ -102,6 +102,7 @@ function getNextModal() {
     }
 }
 
+
 // create event listener on gallery container
 gallery.addEventListener('click', (e) => {
     const cardClicked = e.target.closest('.card')
