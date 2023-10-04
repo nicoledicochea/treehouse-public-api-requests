@@ -2,7 +2,7 @@
    Public API Request
 ======================================== */
 
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 * {
 	box-sizing: border-box;
@@ -14,9 +14,9 @@ html, body {
 }
 
 body {
-    font-family: "Nunito", sans-serif;
+    font-family: "Roboto", sans-serif;
     text-align: center;
-    background: rgba(235, 235, 235, 0.9);
+    background: rgba(210, 215, 217, 0.9);
 }
 
 header {
@@ -24,22 +24,27 @@ header {
 }
 
 .header-inner-container {
-    max-width: 1180px;
+    max-width: 800px;
     margin: auto;
 }
 
 header h1 {
-    font-size: 1.25em;
-    color: rgba(50, 50, 50, 0.9);
+    font-size: 1.5em;
+    /* color: rgba(50, 50, 50, 0.9); */
+    color: black;
     margin-top: 35px;
+    text-align: center;
 }
 
 .search-input {
     padding: 0.4rem 1rem;
     border: 1px solid rgba(200, 200, 200, 0.9);
     border-radius: 0.25rem 0 0 0.25rem ;
-    max-width: 20rem;
+    width: 100%;
+    width: 50%;
+    height: 4rem;
     transition: .4s ease-out;
+    margin-bottom: 1rem;
 }
 
 .search-input:active, .search-input:hover, .search-input:focus {
@@ -48,7 +53,8 @@ header h1 {
 
 .search-submit {
     cursor: pointer;
-    height: 33px;
+    width: 20%;
+    height: 4rem;
     background: rgba(245, 245, 245, 0.9);
     border-radius: 0 0.25rem 0.25rem 0;
     border: 1px solid rgba(200, 200, 200, 0.9);
@@ -71,8 +77,15 @@ header h1 {
     flex-wrap: wrap;
     justify-content: space-evenly;
     width: 100%;
-    max-width: 1200px;
+    max-width:1200px;
     margin: auto;
+}
+
+.gallery h2 {
+    font-size: 2rem;
+    margin-top: 4rem;
+    padding: 1rem;
+    font-style: italic;
 }
   
 .card {
@@ -203,6 +216,22 @@ header h1 {
     transition: .4s ease-out;
   }
   
+  #modal-next,
+  #modal-prev {
+    background-color: rgba(48, 53, 55, 0.9);
+    border: none;
+    color: rgba(234, 237, 239, 0.9);
+  }
+
+  #modal-next:hover,
+  #modal-prev:hover {
+    color: rgba(215, 218, 220, 0.9);
+    background-color: rgba(107, 115, 119, 0.9);
+  }
+
+  .modal-btn-container {
+    background: rgba(210, 215, 217, 1);
+  }
 
 /* ===================================== 
    Media Queries
@@ -213,14 +242,15 @@ header h1 {
 ======================================== */
 
 @media (min-width: 768px) {
-    .header-inner-container {
+    /* .header-inner-container {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
         padding-right: 25px;
         padding-left: 25px;
-    }
+    } */
+
 
     .header-text-container {
         text-align: left;
