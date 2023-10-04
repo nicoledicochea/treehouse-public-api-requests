@@ -1,7 +1,6 @@
 const users = []
 const gallery = document.querySelector('#gallery')
 const body = document.querySelector('body')
-let activeIndex
 
 // get and display 12 random users with US nationality from randomuser.me 
 const url = 'https://randomuser.me/api/?nat=us&results=12'
@@ -34,7 +33,6 @@ function createGalleryCard(data) {
 
 // return modal card HTML
 function createModalCardHTML(data) {
-    // console.log(users.indexOf(data))
     return `<div class="modal-container" data-index="${users.indexOf(data)}">
         <div class="modal">
         <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -60,6 +58,7 @@ function createModalCardHTML(data) {
 function getPrevModal() {
     const modalContainer = document.querySelector('.modal-container')
     let currentModalIndex = modalContainer.dataset.index
+    currentModalIndex = +currentModalIndex
     if(currentModalIndex != 0) {
         const newCard = createModalCardHTML(users[currentModalIndex - 1])
         modalContainer.remove()
@@ -70,72 +69,13 @@ function getPrevModal() {
 function getNextModal() {
     const modalContainer = document.querySelector('.modal-container')
     let currentModalIndex = modalContainer.dataset.index
+    currentModalIndex = +currentModalIndex
     if(currentModalIndex != 11) {
         const newCard = createModalCardHTML(users[currentModalIndex + 1])
         modalContainer.remove()
         gallery.insertAdjacentHTML('beforebegin', newCard) 
     }
 }
-
-
-// display modal 
-// function displayModalCard(data) {
-//     // create modal card html
-//     const card = createModalCardHTML(data)
-//     // add html to the DOM
-//     gallery.insertAdjacentHTML('beforebegin', card)
-
-
-//     // const modalContainer = document.querySelector('.modal-container')
-//     // const prevButton = document.querySelector('#modal-prev')
-//     // const nextButton = document.querySelector('#modal-next')
-
-//     // modalContainer.addEventListener('click', (e) => {
-//     //     console.log(e.target)
-//     //     if(e.target.closest('#modal-prev')) {
-//     //         switchModal(data)
-//     //     } else if (e.target === nextButton) {
-//     //         switchModal(data)
-//     //     } else if(e.target.closest('.modal-close-btn')) {
-//     //         modalContainer.remove()
-//     //     }
-//     // })
-
-
-//     // // close modal when close button clicked
-//     // closeButton.addEventListener('click', (e) => {
-//     //     modalContainer.remove()
-//     // })  
-//     // // close modal when escape key used
-//     // addEventListener('keydown', (e) => {
-//     //     if(e.key === 'Escape') {
-//     //         modalContainer.remove() 
-//     //     }
-//     // })
-//     // // close modal when outside of modal container clicked
-//     // addEventListener('click', (e) => {
-//     //     if(e.target.parentElement === body) {
-//     //         modalContainer.remove() 
-//     //     }
-//     // })
-
-//     // // add click event to modal buttons
-//     // const prevButton = document.querySelector('#modal-prev')
-//     // const nextButton = document.querySelector('#modal-next')
-
-//     // prevButton.addEventListener('click', (e) => {
-//     //     console.log(e.target)
-//     //     let currentModalIndex = modalContainer.dataset.index
-//     //     if(currentModalIndex !== 0) {
-//     //         const newCard = createModalCardHTML(users[currentModalIndex - 1])
-//     //         modalContainer.remove()
-//     //         gallery.insertAdjacentHTML('beforebegin', newCard)    
-//     //     }
-//     // })
-//     // nextButton.addEventListener('click', (e) => {
-//     //     console.log('next')
-//     // })
-// }
 
 // add gallery cards to the DOM
 function generateGallery(data) {
@@ -160,27 +100,39 @@ gallery.addEventListener('click', (e) => {
         const cardName = cardClicked.querySelector('h3').id
         return cardName === person.name.first
     })
-    // display modal
+    // create modal card
     const card = createModalCardHTML(userData)
     // add html to the DOM
     gallery.insertAdjacentHTML('beforebegin', card)
 })
 
- 
+
+// add event listeners to modal container
 addEventListener('click', (e) => {
-
     const modalContainer = document.querySelector('.modal-container')
-
     if(e.target.closest('#modal-prev')) {
         getPrevModal()
-
     } else if (e.target.closest('#modal-next')) {
         getNextModal()
-
     } else if(e.target.closest('.modal-close-btn')) {
         modalContainer.remove()
     }
+})
 
+// close modal when escape key used
+addEventListener('keydown', (e) => {
+    const modalContainer = document.querySelector('.modal-container')
+    if(e.key === 'Escape') {
+        modalContainer.remove() 
+    }
+})
+// close modal when outside of modal container clicked
+addEventListener('click', (e) => {
+    const modalContainer = document.querySelector('.modal-container')
+
+    if(e.target.parentElement === body) {
+        modalContainer.remove() 
+    }
 })
 
 
