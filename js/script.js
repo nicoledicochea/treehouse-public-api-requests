@@ -57,51 +57,85 @@ function createModalCardHTML(data) {
     `
 }
 
-// display modal 
-function displayModalCard(data) {
-    // create modal card html
-    const card = createModalCardHTML(data)
-    // add html to the DOM
-    gallery.insertAdjacentHTML('beforebegin', card)
-
-    // add close modal functionality 
-    const closeButton = document.querySelector('.modal-close-btn')
+function getPrevModal() {
     const modalContainer = document.querySelector('.modal-container')
-
-    // close modal when close button clicked
-    closeButton.addEventListener('click', (e) => {
+    let currentModalIndex = modalContainer.dataset.index
+    if(currentModalIndex != 0) {
+        const newCard = createModalCardHTML(users[currentModalIndex - 1])
         modalContainer.remove()
-    })  
-    // close modal when escape key used
-    addEventListener('keydown', (e) => {
-        if(e.key === 'Escape') {
-            modalContainer.remove() 
-        }
-    })
-    // close modal when outside of modal container clicked
-    addEventListener('click', (e) => {
-        if(e.target.parentElement === body) {
-            modalContainer.remove() 
-        }
-    })
-
-    // add click event to modal buttons
-    const prevButton = document.querySelector('#modal-prev')
-    const nextButton = document.querySelector('#modal-next')
-
-    prevButton.addEventListener('click', (e) => {
-        console.log(e.target)
-        let currentModalIndex = modalContainer.dataset.index
-        if(currentModalIndex !== 0) {
-            const newCard = createModalCardHTML(users[currentModalIndex - 1])
-            modalContainer.remove()
-            gallery.insertAdjacentHTML('beforebegin', newCard)    
-        }
-    })
-    nextButton.addEventListener('click', (e) => {
-        console.log('next')
-    })
+        gallery.insertAdjacentHTML('beforebegin', newCard) 
+    }
 }
+
+function getNextModal() {
+    const modalContainer = document.querySelector('.modal-container')
+    let currentModalIndex = modalContainer.dataset.index
+    if(currentModalIndex != 11) {
+        const newCard = createModalCardHTML(users[currentModalIndex + 1])
+        modalContainer.remove()
+        gallery.insertAdjacentHTML('beforebegin', newCard) 
+    }
+}
+
+
+// display modal 
+// function displayModalCard(data) {
+//     // create modal card html
+//     const card = createModalCardHTML(data)
+//     // add html to the DOM
+//     gallery.insertAdjacentHTML('beforebegin', card)
+
+
+//     // const modalContainer = document.querySelector('.modal-container')
+//     // const prevButton = document.querySelector('#modal-prev')
+//     // const nextButton = document.querySelector('#modal-next')
+
+//     // modalContainer.addEventListener('click', (e) => {
+//     //     console.log(e.target)
+//     //     if(e.target.closest('#modal-prev')) {
+//     //         switchModal(data)
+//     //     } else if (e.target === nextButton) {
+//     //         switchModal(data)
+//     //     } else if(e.target.closest('.modal-close-btn')) {
+//     //         modalContainer.remove()
+//     //     }
+//     // })
+
+
+//     // // close modal when close button clicked
+//     // closeButton.addEventListener('click', (e) => {
+//     //     modalContainer.remove()
+//     // })  
+//     // // close modal when escape key used
+//     // addEventListener('keydown', (e) => {
+//     //     if(e.key === 'Escape') {
+//     //         modalContainer.remove() 
+//     //     }
+//     // })
+//     // // close modal when outside of modal container clicked
+//     // addEventListener('click', (e) => {
+//     //     if(e.target.parentElement === body) {
+//     //         modalContainer.remove() 
+//     //     }
+//     // })
+
+//     // // add click event to modal buttons
+//     // const prevButton = document.querySelector('#modal-prev')
+//     // const nextButton = document.querySelector('#modal-next')
+
+//     // prevButton.addEventListener('click', (e) => {
+//     //     console.log(e.target)
+//     //     let currentModalIndex = modalContainer.dataset.index
+//     //     if(currentModalIndex !== 0) {
+//     //         const newCard = createModalCardHTML(users[currentModalIndex - 1])
+//     //         modalContainer.remove()
+//     //         gallery.insertAdjacentHTML('beforebegin', newCard)    
+//     //     }
+//     // })
+//     // nextButton.addEventListener('click', (e) => {
+//     //     console.log('next')
+//     // })
+// }
 
 // add gallery cards to the DOM
 function generateGallery(data) {
@@ -127,9 +161,27 @@ gallery.addEventListener('click', (e) => {
         return cardName === person.name.first
     })
     // display modal
-    displayModalCard(userData)
+    const card = createModalCardHTML(userData)
+    // add html to the DOM
+    gallery.insertAdjacentHTML('beforebegin', card)
 })
 
+ 
+addEventListener('click', (e) => {
+
+    const modalContainer = document.querySelector('.modal-container')
+
+    if(e.target.closest('#modal-prev')) {
+        getPrevModal()
+
+    } else if (e.target.closest('#modal-next')) {
+        getNextModal()
+
+    } else if(e.target.closest('.modal-close-btn')) {
+        modalContainer.remove()
+    }
+
+})
 
 
 // reference for help with regex for formatting
