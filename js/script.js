@@ -57,18 +57,12 @@ function createModalCardHTML(data) {
 
 function displayModalCard(data) {
     // create modal card
-    const card = createModalCardHTML(data)
-    // add card HTML to the modal container
-    const modalContainer = document.createElement('div')
-    modalContainer.classList.add('modal-container')
-    modalContainer.innerHTML = card
-    // modalContainer.insertAdjacentHTML = ('afterbegin', card)
-    console.log(modalContainer)
-
-    gallery.insertAdjacentElement('beforebegin', modalContainer)
+   const card = createModalCardHTML(data)
+   gallery.insertAdjacentHTML('beforebegin', card)
 
     // add close modal functionality 
     const closeButton = document.querySelector('.modal-close-btn')
+    const modalContainer = document.querySelector('.modal-container')
 
     // close modal when close button clicked
     closeButton.addEventListener('click', (e) => {
@@ -100,71 +94,70 @@ function generateGallery(data) {
     }).join('')) 
 }
 
-let userData,
-modalContainer,
-closeButton
+// let userData
 
 // create event listener on gallery container
 gallery.addEventListener('click', (e) => {
     const cardClicked = e.target.closest('.card')
     // ensure only gallery card selected
-    if(cardClicked) {
-        // find card that was clicked
-        userData = users.find(person => {
-            const cardName = cardClicked.querySelector('h3').id
-            return cardName === person.name.first
-        })
+    if(!cardClicked) {
+        return
+    }
+    // find card that was clicked
+    const userData = users.find(person => {
+        const cardName = cardClicked.querySelector('h3').id
+        return cardName === person.name.first
+    })
     // display modal
-    // displayModalCard(data)
-
-    // create modal card
-    const card = createModalCardHTML(userData)
-    gallery.insertAdjacentHTML('beforebegin', card)
+    displayModalCard(userData)
 
     
-    }
+    
+    
+    
    
-    // add close modal functionality 
-    closeButton = document.querySelector('.modal-close-btn')
+    // // add close modal functionality 
+    // const closeButton = document.querySelector('.modal-close-btn')
+    // const modalContainer = document.querySelector('.modal-container')
 
-    // close modal when close button clicked
-    closeButton.addEventListener('click', (e) => {
-        modalContainer.remove()
-    })  
-    // close modal when escape key used
-    addEventListener('keydown', (e) => {
-        if(e.key === 'Escape') {
-            modalContainer.remove() 
-        }
-    })
-    // close modal when outside of modal container clicked
-    addEventListener('click', (e) => {
-        if(e.target.parentElement === body) {
-            modalContainer.remove() 
-        }
-    })
+    // // close modal when close button clicked
+    // closeButton.addEventListener('click', (e) => {
+    //     modalContainer.remove()
+    // })  
+    // // close modal when escape key used
+    // addEventListener('keydown', (e) => {
+    //     if(e.key === 'Escape') {
+    //         modalContainer.remove() 
+    //     }
+    // })
+    // // close modal when outside of modal container clicked
+    // addEventListener('click', (e) => {
+    //     if(e.target.parentElement === body) {
+    //         modalContainer.remove() 
+    //     }
+    // })
 
-    // add click event to modal buttons
-    const prevButton = document.querySelector('#modal-prev')
-    const nextButton = document.querySelector('#modal-next')
-    // const modalContainer = document.querySelector('#modal-container')
-    prevButton.addEventListener('click', (e) => {
-        console.log(e.target)
-        // const index = users.indexOf(userData)
-        if(activeIndex !== 0) {
-            // const newCard = createModalCard(users[index - 1])
-            activeIndex = users.indexOf(userData)
-            userData = users[activeIndex - 1]
+    // // add click event to modal buttons
+    // const prevButton = document.querySelector('#modal-prev')
+    // const nextButton = document.querySelector('#modal-next')
+    // // const modalContainer = document.querySelector('#modal-container')
+    // prevButton.addEventListener('click', (e) => {
+    //     console.log(e.target)
+    //     // const index = users.indexOf(userData)
+    //     if(activeIndex !== 0) {
+    //         // const newCard = createModalCard(users[index - 1])
+    //         activeIndex = users.indexOf(userData)
+    //         userData = users[activeIndex - 1]
 
-            const newCard = createModalCardHTML(userData) 
-            let modalContainer = document.querySelector('.modal-container')
-            modalContainer.remove()
-            gallery.insertAdjacentHTML('beforebegin', newCard)    
-        }
-    })
-    nextButton.addEventListener('click', (e) => {
-        console.log('next')
-    })
+    //         const newCard = createModalCardHTML(userData) 
+    //         let modalContainer = document.querySelector('.modal-container')
+    //         modalContainer.remove()
+    //         gallery.insertAdjacentHTML('beforebegin', newCard)    
+    //     }
+    // })
+    // nextButton.addEventListener('click', (e) => {
+    //     console.log('next')
+    // })
 })
 
 
