@@ -136,7 +136,7 @@ addEventListener('click', (e) => {
 // close modal when escape key used
 addEventListener('keydown', (e) => {
     const modalContainer = document.querySelector('.modal-container')
-    if(e.key === 'Escape' && modalContainer) {
+    if(e.key === 'Escape') {
         modalContainer.remove() 
     }
 })
@@ -144,7 +144,7 @@ addEventListener('keydown', (e) => {
 addEventListener('click', (e) => {
     const modalContainer = document.querySelector('.modal-container')
     const body = document.querySelector('body')
-    if(e.target.parentElement === body && modalContainer) {
+    if(e.target.parentElement === body) {
         modalContainer.remove() 
     }
 })
