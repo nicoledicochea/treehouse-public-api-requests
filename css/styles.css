@@ -185,6 +185,8 @@ header h1 {
 
 .modal-name {
     margin-bottom: 5px;
+    text-transform: uppercase;
+    color: rgb(63, 105, 115);
 }
 
 .modal-text {
