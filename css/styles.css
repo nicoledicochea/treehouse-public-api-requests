@@ -16,7 +16,7 @@ html, body {
 body {
     font-family: "Roboto", sans-serif;
     text-align: center;
-    background: rgba(210, 215, 217, 0.9);
+    background: rgb(84, 159, 174);
 }
 
 header {
@@ -34,7 +34,7 @@ header h1 {
     color: black;
     margin-top: 35px;
     text-align: center;
-    color: rgb(63, 105, 115);
+    color: rgb(237, 241, 242);
     /* text-decoration: underline;
     text-underline-offset: 5px; */
 }
@@ -43,9 +43,7 @@ header h1 {
     padding: 0.4rem 1rem;
     border: 1px solid rgba(200, 200, 200, 0.9);
     border-radius: 0.25rem 0 0 0.25rem ;
-    width: 100%;
-    width: 50%;
-    height: 4rem;
+    height: 33px;
     transition: .4s ease-out;
     margin-bottom: 1rem;
 }
@@ -56,8 +54,7 @@ header h1 {
 
 .search-submit {
     cursor: pointer;
-    width: 20%;
-    height: 4rem;
+    height: 33px;
     background: rgb(63, 105, 115);
     border-radius: 0 0.25rem 0.25rem 0;
     border: 1px solid rgba(200, 200, 200, 0.9);
@@ -68,7 +65,7 @@ header h1 {
 
 .search-submit:active, .search-submit:hover, .search-submit:focus {
     background: rgba(107, 132, 136, 0.9);
-    border: 1px solid rgba(50, 50, 50, 0.9);
+    border: 1px solid rgba(200, 200, 200, 0.9);
 }
 
 
@@ -95,13 +92,13 @@ header h1 {
   
 .card {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     width: 100%;
-    max-width: 250px;
+    max-width: 360px;
     margin: 10px 10px 20px;
     padding: 10px;
     background: rgba(245, 245, 245, 0.9);
@@ -269,14 +266,14 @@ header h1 {
 ======================================== */
 
 @media (min-width: 768px) {
-    /* .header-inner-container {
+    .header-inner-container {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
         padding-right: 25px;
         padding-left: 25px;
-    } */
+    }
 
 
     .header-text-container {
