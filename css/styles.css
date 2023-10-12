@@ -16,11 +16,12 @@ html, body {
 body {
     font-family: "Roboto", sans-serif;
     text-align: center;
-    background: rgb(84, 159, 174);
+    background: rgba(210, 215, 217, 0.9);
 }
 
 header {
     padding: 15px 5px 5px;
+    color: rgb(63, 105, 115);
 }
 
 .header-inner-container {
@@ -30,7 +31,6 @@ header {
 
 header h1 {
     font-size: 1.25em;
-    color: rgba(248, 248, 248, 0.9);
     margin-top: 35px;
 }
 
@@ -77,17 +77,18 @@ header h1 {
   
 .card {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     width: 100%;
-    max-width: 360px;
+    max-width: 300px;
     margin: 10px 10px 20px;
     padding: 10px;
     background: rgba(245, 245, 245, 0.9);
     border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    border: 1px solid rgba(97, 141, 154, 0.3);
     transition: .4s ease-out;
     overflow: hidden;
 }
@@ -111,7 +112,7 @@ header h1 {
 }
 
 .card-info-container {
-    text-align: left;
+    text-align: center;
 }
 
 .card-name {
@@ -130,7 +131,10 @@ header h1 {
 }
 
 .cap:last-child {
+    background-color: rgb(84, 159, 174);
     font-style: italic;
+    padding: 20px;
+    color: rgb(239, 243, 245);
 }
 
 /* ===================================== 
@@ -143,7 +147,8 @@ header h1 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.7);
+    /* background: rgba(0, 0, 0, 0.7); */
+    background: rgba(62, 79, 85, 0.7);
 }
 
 .modal {
@@ -155,7 +160,7 @@ header h1 {
     padding-bottom: 15px;
     background: rgba(255, 255, 255, 1);
     border-radius: 0.25em;
-    border: 1px solid rgba(100, 100, 100, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     transition: .4s ease-out;
 }
 
@@ -199,7 +204,7 @@ header h1 {
     flex-wrap: nowrap;
     justify-content: space-evenly;
     width: 95%;
-    max-width: 420px;
+    max-width: 360px;
     padding: 10px 15px 15px;;
     margin: 10px auto auto;
     /* background: rgba(255, 255, 255, 1); */
@@ -224,7 +229,7 @@ header h1 {
   #modal-next,
   #modal-prev {
     background-color: rgba(211, 211, 211, 0.9);
-    border: none;
+    border: 1px black solid;
     color: rgba(64, 77, 79, 0.9);
   }
 
@@ -243,9 +248,10 @@ header h1 {
    Tablet
 ======================================== */
 
-@media (min-width: 768px) {
-    .header-inner-container {
+@media (max-width: 768px) {
+    .card {
         display: flex;
+        max-width: 400px;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-between;
@@ -254,7 +260,7 @@ header h1 {
     }
 
     .header-text-container {
-        text-align: left;
+        text-align: center;
     }
 
     .search-container {
